@@ -3,11 +3,12 @@ package com.services;
 import com.card.models.Message;
 import org.springframework.stereotype.Component;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 
-@Component
+//@Component
 public class CardAuthService {
-    public Boolean authorizeCard(Message transaction) {
+    public Boolean authorizeCard(@Valid Message transaction) {
         int transactionAmountInCent = Integer.parseInt(transaction.transactionAmountInCents);
         int transactionAmountInDollars = transactionAmountInCent / 100;
 
