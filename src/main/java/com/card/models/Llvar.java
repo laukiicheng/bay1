@@ -5,6 +5,11 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class Llvar {
+
+    public Llvar(String value){
+        this.value = value;
+    }
+
     // variable length
     // two section
     // first 2 chars numeric indication the length of the actual alpha value

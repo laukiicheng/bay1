@@ -1,16 +1,22 @@
 package com.services;
 
-import com.card.models.Message;
-import org.springframework.stereotype.Component;
+import com.Application;
+import com.card.models.Transaction;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
 
 //@Component
 public class CardAuthService {
-    public Boolean authorizeCard(@Valid Message transaction) {
-        int transactionAmountInCent = Integer.parseInt(transaction.transactionAmountInCents);
-        int transactionAmountInDollars = transactionAmountInCent / 100;
+
+    @Autowired
+    private Logger logger;
+
+    public Boolean authorizeCard(@Valid Transaction transaction) {
+        int transactionAmountInDollars = transaction.transactionAmountInCents / 100;
 
         if (transaction.zipCode != null && transactionAmountInDollars >= 200) {
             return false;
@@ -20,11 +26,22 @@ public class CardAuthService {
             return false;
         }
 
-        LocalDate expirationDate = LocalDate.parse(transaction.expirationDate);
-        if (expirationDate.isAfter(LocalDate.now())) {
+        if (transaction.expirationDate.isAfter(LocalDate.now())) {
             return false;
         }
 
         return true;
+    }
+
+    public void getPrintTransactionIsValid(Boolean transactionValid, String transaction, String responseCode){
+        if(transactionValid){
+            logger.info(transaction + responseCode);
+        }else{
+            logger.info(transaction + "DE");
+        }
+    }
+
+    public void printTransactionMissingRequiredField(String transaction){
+        logger.info(transaction + "ER");
     }
 }

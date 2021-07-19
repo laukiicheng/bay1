@@ -1,26 +1,38 @@
 package com.card.models;
 
 import javax.validation.constraints.*;
-import java.util.List;
 
 public class Message {
+
+    public Message(){}
+
+    public Message(
+            String messageType,
+            String creditCardNumber,
+            String transactionAmountInCents,
+            String expirationDate,
+            String responseCode,
+            String cardHolderName,
+            String zipCode
+    ) {
+        this.messageType = messageType;
+        this.creditCardNumber = creditCardNumber;
+        this.transactionAmountInCents = transactionAmountInCents;
+        this.expirationDate = expirationDate;
+        this.responseCode = responseCode;
+        this.cardHolderName = cardHolderName;
+        this.zipCode = zipCode;
+    }
+
     // 4 digits
     // 0110
     // 0110
-    @NotNull
-    @Size(min = 0, max = 4)
-    public int messageType;
 
-    // 2 character
-    // lower case, hex encoding of 1 byte bitmap value
-    // c8 -> 11001000
-    @NotNull
-    @Size(min = 0, max = 2)
-    public int bitMap;
+    public String messageType;
 
     @NotNull
     // 14-19
-    public Llvar creditCardNumber;
+    public String creditCardNumber;
 
     @NotNull
     @NotBlank
